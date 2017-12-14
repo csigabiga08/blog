@@ -11,6 +11,9 @@ app.set('port', (process.env.PORT || 3000))
 const VERIFICATION_CODE = process.env.MESSENGER_VERIFICATION_CODE ? process.env.MESSENGER_VERIFICATION_CODE : 'very_secret'
 const PAGE_ACCESS_TOKEN = process.env.MESSENGER_PAGE_ACCESS_TOKEN
 
+const VERIFICATION_CODE = "secretive_random";
+const PAGE_ACCESS_TOKEN = "EAAcaKUbFlZAABAGmqcwHm0iFpgmVqeO6Dnohi351Q7zZCHkVZAvcW48oD0yKDVM3vbFeihzCZARFHJ1JSlVlyoazDZAA4ZCpMJDRCtEUdfHwEBxwZCulICMmZCKxZBeCqd3zQLdqZCrQtNGQOhXTdWguMWdIxRZCClXhWb8qq9LCsiFxEH3bXLYZA0ZBZA"
+
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
@@ -61,14 +64,14 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200);
   }
 });
-  
+
 function receivedMessage(event) {
   var senderID = event.sender.id;
   var recipientID = event.recipient.id;
   var timeOfMessage = event.timestamp;
   var message = event.message;
 
-  console.log("Received message for user %d and page %d at %d with message:", 
+  console.log("Received message for user %d and page %d at %d with message:",
     senderID, recipientID, timeOfMessage);
   console.log(JSON.stringify(message));
 
@@ -88,7 +91,7 @@ function receivedMessage(event) {
       default:
         sendTextMessage(senderID, messageText);
     }
-  } 
+  }
 }
 
 function sendTextMessage(recipientId, messageText) {
@@ -116,14 +119,14 @@ function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
 
-      console.log("Successfully sent generic message with id %s to recipient %s", 
+      console.log("Successfully sent generic message with id %s to recipient %s",
         messageId, recipientId);
     } else {
       console.error("Unable to send message.");
       console.error(response);
       console.error(error);
     }
-  });  
+  });
 }
 
 // Spin up the server
